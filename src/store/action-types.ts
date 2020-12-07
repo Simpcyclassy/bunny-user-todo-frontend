@@ -1,4 +1,4 @@
 export enum ActionTypes {
-    GET_USERS = 'GET_USERS',
-    GET_TASKS = 'GET_TASKS',
+    GET_USER = 'GET_USER',
+    GET_TASK = 'GET_TASK',
 }

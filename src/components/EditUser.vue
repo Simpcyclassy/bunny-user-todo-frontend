@@ -16,7 +16,7 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Add User</span>
+          <span class="headline">Edit User</span>
         </v-card-title>
         <v-card-text>
           <v-container>

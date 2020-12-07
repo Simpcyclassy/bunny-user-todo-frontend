@@ -16,7 +16,7 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Add Todo</span>
+          <span class="headline">Edit Todo</span>
         </v-card-title>
         <v-card-text>
           <v-container>
