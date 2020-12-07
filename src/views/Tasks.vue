@@ -18,12 +18,12 @@
     <v-container>
       <v-row dense>
         <v-col
-          v-for="(item, i) in items"
+          v-for="(item, i) in getTodo"
           :key="i"
           cols="12"
         >
           <v-card
-            :color="item.color"
+            :color="colorClass(i)"
             dark
           >
             <div class="d-flex flex-no-wrap justify-space-between">
@@ -45,6 +45,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 import TaskForm from '../components/TaskForm.vue'
 import EditTask from '../components/EditTask.vue'
 
@@ -56,30 +57,34 @@ export default Vue.extend({
     EditTask
   },
 
-  data: () => ({
-    items: [
-      {
-        id: 'hjcbreij',
-        color: '#1F7087',
-        description: 'Supermodel',
-        state: 'todo',
-        userId: 'jechei'
-      },
-      {
-        id: 'hjcbreij',
-        color: '#952175',
-        description: 'Halcyon Days',
-        state: 'todo',
-        userId: 'jechei'
-      },
-      {
-        id: 'hjcbreij',
-        color: '#952175',
-        description: 'Halcyon Days',
-        state: 'todo',
-        userId: 'jechei'
+  computed: {
+    ...mapGetters([
+      'getTodo'
+    ])
+  },
+  methods: {
+    colorClass (index: number) {
+      let colorClass = ''
+
+      if (this.getTodo[index].TaskState === 'todo') {
+        colorClass = 'todo'
+      } else {
+        colorClass = 'done'
       }
-    ]
-  })
+
+      return colorClass
+    }
+  }
 })
 </script>
+
+<style scoped>
+
+.todo {
+  color: lightblue;
+}
+
+.done {
+  color: grey;
+}
+</style>

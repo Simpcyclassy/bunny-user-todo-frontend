@@ -32,16 +32,16 @@
             dense
           >
             <v-timeline-item
-              v-for="message in messages"
-              :key="message.time"
+              v-for="user in getAllUsers"
+              :key="user.id"
               small
             >
               <div>
                 <EditUser />
                 <div class="font-weight-normal">
-                  <strong>{{ message.name }}</strong> @{{ message.time }}
+                  <strong>{{ user.name }}</strong> @{{ user.time }}
                 </div>
-                <div>{{ message.message }}</div>
+                <v-btn>View todo</v-btn>
                 <v-btn icon>
                   <v-icon>mdi-delete</v-icon>
                 </v-btn>
@@ -56,6 +56,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 import UserForm from '../components/UserForm.vue'
 import EditUser from '../components/EditUser.vue'
 
@@ -67,27 +68,10 @@ export default Vue.extend({
     EditUser
   },
 
-  data: () => ({
-    messages: [
-      {
-        id: 'ecugud',
-        name: 'You',
-        message: 'Sure, I\'ll see you later.',
-        time: '10:42am'
-      },
-      {
-        id: 'ecugud',
-        name: 'John Doe',
-        message: 'Yeah, sure. Does 1:00pm work?',
-        time: '10:37am'
-      },
-      {
-        id: 'ecugud',
-        name: 'You',
-        message: 'Did you still want to grab lunch today?',
-        time: '9:47am'
-      }
-    ]
-  })
+  computed: {
+    ...mapGetters([
+      'getAllUsers'
+    ])
+  }
 })
 </script>
