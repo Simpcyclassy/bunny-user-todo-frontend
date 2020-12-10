@@ -27,6 +27,11 @@ export interface Actions {
     { commit }: AugmentedActionContext,
     payload: UserPayload
   ): Promise<UserPayload>;
+
+  [ActionTypes.DELETE_USER](
+    { commit }: AugmentedActionContext,
+    payload: string
+  ): Promise<string>;
 }
 
 export const actions: ActionTree<State, State> & Actions = {
@@ -59,7 +64,19 @@ export const actions: ActionTree<State, State> & Actions = {
       setTimeout(() => {
         axios.patch(`http://localhost:4000/api/v1/users/${id}`, name)
           .then(response => {
-            commit(MutationTypes.SET_EDITED_USER, `${name} updated successfully`)
+            commit(MutationTypes.SET_UPDATE_MESSAGE, `${name} updated successfully`)
+            resolve(response.data)
+          })
+      }, 300)
+    })
+  },
+
+  [ActionTypes.DELETE_USER] ({ commit }, id) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        axios.delete(`http://localhost:4000/api/v1/users/${id}`)
+          .then(response => {
+            commit(MutationTypes.SET_UPDATE_MESSAGE, `${response.data.data.name} deleted successfully`)
             resolve(response.data)
           })
       }, 300)

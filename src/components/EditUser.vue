@@ -43,7 +43,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="handleSubmit"
+            @click="handleUpdate"
           >
             Save
           </v-btn>
@@ -70,7 +70,7 @@ export default Vue.extend({
   }),
 
   methods: {
-    async handleSubmit () {
+    async handleUpdate () {
       const name = this.name
       console.log(this.userId)
       const payload = {
