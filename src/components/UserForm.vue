@@ -31,7 +31,6 @@
                 <v-text-field
                   label="Name"
                   required
-                  v-model="name"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -49,7 +48,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="handleSubmit"
+            @click="dialog = false"
           >
             Save
           </v-btn>
@@ -61,24 +60,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { ActionTypes } from '../store/action-types'
 
 export default Vue.extend({
-  name: 'UserForm',
+  name: 'Home',
 
   data: () => ({
-    name: '',
     dialog: false
-  }),
-
-  methods: {
-    async handleSubmit () {
-      const name = this.name
-      await this.$store.dispatch(ActionTypes.GET_NEW_USER, { name })
-      this.dialog = false
-      this.name = ''
-    }
-  }
-
+  })
 })
 </script>

@@ -37,20 +37,17 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
-import { ActionTypes } from '../store/action-types'
+import { MutationTypes } from '../store/mutation-types'
 import UserForm from '../components/UserForm.vue'
 import EditUser from '../components/EditUser.vue'
 
 export default Vue.extend({
-  name: 'User',
+  name: 'Home',
 
   components: {
     UserForm,
     EditUser
   },
-  data: () => ({
-    index: 0
-  }),
 
   computed: {
     ...mapGetters([
@@ -58,19 +55,17 @@ export default Vue.extend({
     ])
   },
 
-  methods: {
-    async getUser () {
-      await this.$store.dispatch(ActionTypes.GET_USER)
-    }
-  },
-
-  watch: {
-    index: {
-      immediate: true,
-      handler () {
-        this.getUser()
-      }
-    }
+  mounted: function () {
+    fetch('http://localhost:4000/api/v1/users', {
+      method: 'get'
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((jsonData) => {
+        const payload = jsonData.data
+        this.$store.commit(MutationTypes.SET_USER, payload)
+      })
   }
 })
 </script>
