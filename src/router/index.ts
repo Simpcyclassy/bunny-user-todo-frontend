@@ -12,7 +12,7 @@ const routes: Array<RouteConfig> = [
     component: Users
   },
   {
-    path: '/todo',
+    path: '/todo/:id',
     name: 'Tasks',
     component: Tasks
   }
