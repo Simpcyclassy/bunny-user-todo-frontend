@@ -11,7 +11,7 @@
 
       <v-spacer></v-spacer>
 
-        <UserForm />
+      <UserForm />
     </v-toolbar>
     <v-list>
       <v-list-item
@@ -37,12 +37,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
-import { MutationTypes } from '../store/mutation-types'
+import { ActionTypes } from '../store/action-types'
 import UserForm from '../components/UserForm.vue'
 import EditUser from '../components/EditUser.vue'
 
 export default Vue.extend({
-  name: 'Home',
+  name: 'User',
 
   components: {
     UserForm,
@@ -55,17 +55,14 @@ export default Vue.extend({
     ])
   },
 
-  mounted: function () {
-    fetch('http://localhost:4000/api/v1/users', {
-      method: 'get'
-    })
-      .then((response) => {
-        return response.json()
-      })
-      .then((jsonData) => {
-        const payload = jsonData.data
-        this.$store.commit(MutationTypes.SET_USER, payload)
-      })
+  methods: {
+    async getUser () {
+      await this.$store.dispatch(ActionTypes.GET_USER)
+    }
+  },
+
+  mounted () {
+    this.getUser()
   }
 })
 </script>

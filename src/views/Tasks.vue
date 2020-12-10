@@ -50,7 +50,7 @@ import TaskForm from '../components/TaskForm.vue'
 import EditTask from '../components/EditTask.vue'
 
 export default Vue.extend({
-  name: 'Home',
+  name: 'Tasks',
 
   components: {
     TaskForm,
