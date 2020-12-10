@@ -1,6 +1,6 @@
 import { ActionTree, ActionContext } from 'vuex'
-import { State } from './state'
-import { Mutations, UserPayload } from './mutations'
+import { State, UserType } from './state'
+import { Mutations } from './mutations'
 import { ActionTypes } from './action-types'
 import { MutationTypes } from './mutation-types'
 
@@ -14,12 +14,12 @@ type AugmentedActionContext = {
 export interface Actions {
   [ActionTypes.GET_USER](
     { commit }: AugmentedActionContext,
-    payload: UserPayload
-  ): Promise<UserPayload>;
+    payload: UserType
+  ): Promise<UserType>;
 }
 
 export const actions: ActionTree<State, State> & Actions = {
-  [ActionTypes.GET_USER] ({ commit }, payload: UserPayload) {
+  [ActionTypes.GET_USER] ({ commit }, payload: UserType) {
     return new Promise((resolve) => {
       setTimeout(() => {
         commit(MutationTypes.SET_USER, payload)
