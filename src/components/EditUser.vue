@@ -25,6 +25,7 @@
                 <v-text-field
                   label="Name"
                   required
+                  v-model="name"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -42,7 +43,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="handleSubmit"
           >
             Save
           </v-btn>
@@ -54,12 +55,35 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { ActionTypes } from '../store/action-types'
 
 export default Vue.extend({
   name: 'EditUser',
 
+  props: {
+    userId: String
+  },
+
   data: () => ({
+    name: '',
     dialog: false
-  })
+  }),
+
+  methods: {
+    async handleSubmit () {
+      const name = this.name
+      console.log(this.userId)
+      const payload = {
+        id: this.userId,
+        name: { name }
+      }
+      console.log(payload)
+      await this.$store.dispatch(ActionTypes.EDIT_USER, payload)
+      this.dialog = false
+      this.name = ''
+      await this.$store.dispatch(ActionTypes.GET_USERS)
+    }
+  }
+
 })
 </script>

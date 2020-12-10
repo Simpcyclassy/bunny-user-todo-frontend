@@ -19,7 +19,7 @@
         :key="user.id"
       >
         <v-list-item-icon>
-          <EditUser />
+          <EditUser :userId="user.id" />
         </v-list-item-icon>
 
         <v-list-item-content>
@@ -57,7 +57,7 @@ export default Vue.extend({
 
   methods: {
     async getUser () {
-      await this.$store.dispatch(ActionTypes.GET_USER)
+      await this.$store.dispatch(ActionTypes.GET_USERS)
     }
   },
 

@@ -42,7 +42,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="handleSubmit"
           >
             Save
           </v-btn>
@@ -59,7 +59,9 @@ export default Vue.extend({
   name: 'EditTask',
 
   data: () => ({
+    name: '',
     dialog: false
   })
+
 })
 </script>

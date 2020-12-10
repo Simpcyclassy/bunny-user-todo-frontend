@@ -13,28 +13,35 @@ type AugmentedActionContext = {
 } & Omit<ActionContext<State, State>, 'commit'>
 
 export interface Actions {
-  [ActionTypes.GET_USER](
+  [ActionTypes.GET_USERS](
     { commit }: AugmentedActionContext,
     payload: UserType
   ): Promise<UserType>;
+
   [ActionTypes.GET_NEW_USER](
+    { commit }: AugmentedActionContext,
+    payload: UserPayload
+  ): Promise<UserPayload>;
+
+  [ActionTypes.EDIT_USER](
     { commit }: AugmentedActionContext,
     payload: UserPayload
   ): Promise<UserPayload>;
 }
 
 export const actions: ActionTree<State, State> & Actions = {
-  [ActionTypes.GET_USER] ({ commit }) {
+  [ActionTypes.GET_USERS] ({ commit }) {
     return new Promise((resolve) => {
       setTimeout(() => {
         axios.get('http://localhost:4000/api/v1/users')
           .then(response => {
-            commit(MutationTypes.SET_USER, response.data.data)
+            commit(MutationTypes.SET_USERS, response.data.data)
             resolve(response.data)
           })
       }, 300)
     })
   },
+
   [ActionTypes.GET_NEW_USER] ({ commit }, payload: UserPayload) {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -45,5 +52,18 @@ export const actions: ActionTree<State, State> & Actions = {
           })
       }, 300)
     })
+  },
+
+  [ActionTypes.EDIT_USER] ({ commit }, { id, name }) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        axios.patch(`http://localhost:4000/api/v1/users/${id}`, name)
+          .then(response => {
+            commit(MutationTypes.SET_EDITED_USER, `${name} updated successfully`)
+            resolve(response.data)
+          })
+      }, 300)
+    })
   }
+
 }
