@@ -4,7 +4,7 @@ import { State, UserType, TaskType, UserPayload } from './state'
 
 export type Mutations<S = State> = {
   [MutationTypes.SET_USERS](state: S, payload: UserType): void;
-  [MutationTypes.SET_EDITED_USER](state: S, payload: string): void;
+  [MutationTypes.SET_UPDATE_MESSAGE](state: S, payload: string): void;
   [MutationTypes.SET_TASK](state: S, payload: TaskType): void;
   [MutationTypes.SET_NEW_USER](state: S, payload: UserPayload): void;
 }
@@ -13,7 +13,7 @@ export const mutations: MutationTree<State> & Mutations = {
   [MutationTypes.SET_USERS] (state, payload: UserType) {
     state.users = payload
   },
-  [MutationTypes.SET_EDITED_USER] (state, payload: string) {
+  [MutationTypes.SET_UPDATE_MESSAGE] (state, payload: string) {
     state.message = payload
   },
   [MutationTypes.SET_NEW_USER] (state, payload: UserPayload) {
