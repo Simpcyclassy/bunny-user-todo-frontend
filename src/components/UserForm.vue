@@ -77,6 +77,7 @@ export default Vue.extend({
       await this.$store.dispatch(ActionTypes.GET_NEW_USER, { name })
       this.dialog = false
       this.name = ''
+      await this.$store.dispatch(ActionTypes.GET_USER)
     }
   }
 

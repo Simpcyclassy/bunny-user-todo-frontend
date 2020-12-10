@@ -11,7 +11,7 @@
 
       <v-spacer></v-spacer>
 
-        <UserForm />
+      <UserForm />
     </v-toolbar>
     <v-list>
       <v-list-item
@@ -48,9 +48,6 @@ export default Vue.extend({
     UserForm,
     EditUser
   },
-  data: () => ({
-    index: 0
-  }),
 
   computed: {
     ...mapGetters([
@@ -64,13 +61,8 @@ export default Vue.extend({
     }
   },
 
-  watch: {
-    index: {
-      immediate: true,
-      handler () {
-        this.getUser()
-      }
-    }
+  mounted () {
+    this.getUser()
   }
 })
 </script>
