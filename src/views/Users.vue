@@ -1,62 +1,43 @@
 <template>
-  <v-container>
-    <v-row justify="space-around">
-      <v-card width="400">
-        <v-img
-          height="200px"
-          src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg"
-        >
-          <v-app-bar
-            flat
-            color="rgba(0, 0, 0, 0)"
-          >
-            <v-toolbar-title class="title white--text pl-0">
-              Users
-            </v-toolbar-title>
+  <v-card
+    max-width="500"
+    class="mx-auto"
+  >
+    <v-toolbar
+      color="indigo"
+      dark
+    >
+      <v-toolbar-title>Users</v-toolbar-title>
 
-            <v-spacer></v-spacer>
-          </v-app-bar>
+      <v-spacer></v-spacer>
 
-          <v-card-title class="white--text mt-8">
-            <UserForm />
-          </v-card-title>
-        </v-img>
+        <UserForm />
+    </v-toolbar>
+    <v-list>
+      <v-list-item
+        v-for="user in getAllUsers"
+        :key="user.id"
+      >
+        <v-list-item-icon>
+          <EditUser />
+        </v-list-item-icon>
 
-        <v-card-text>
-          <div class="font-weight-bold ml-8 mb-2">
-            Users List
-          </div>
+        <v-list-item-content>
+          <v-list-item-title v-text="user.name"></v-list-item-title>
+        </v-list-item-content>
 
-          <v-timeline
-            align-top
-            dense
-          >
-            <v-timeline-item
-              v-for="user in getAllUsers"
-              :key="user.id"
-              small
-            >
-              <div>
-                <EditUser />
-                <div class="font-weight-normal">
-                  <strong>{{ user.name }}</strong> @{{ user.time }}
-                </div>
-                <v-btn>View todo</v-btn>
-                <v-btn icon>
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </div>
-            </v-timeline-item>
-          </v-timeline>
-        </v-card-text>
-      </v-card>
-    </v-row>
-  </v-container>
+        <v-list-item-icon>
+          <v-icon>mdi-delete</v-icon>
+        </v-list-item-icon>
+      </v-list-item>
+    </v-list>
+  </v-card>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
+import { MutationTypes } from '../store/mutation-types'
 import UserForm from '../components/UserForm.vue'
 import EditUser from '../components/EditUser.vue'
 
@@ -72,6 +53,19 @@ export default Vue.extend({
     ...mapGetters([
       'getAllUsers'
     ])
+  },
+
+  mounted: function () {
+    fetch('http://localhost:4000/api/v1/users', {
+      method: 'get'
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((jsonData) => {
+        const payload = jsonData.data
+        this.$store.commit(MutationTypes.SET_USER, payload)
+      })
   }
 })
 </script>
