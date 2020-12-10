@@ -56,7 +56,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'EditUser',
+  name: 'Home',
 
   data: () => ({
     dialog: false
