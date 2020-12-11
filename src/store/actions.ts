@@ -99,7 +99,7 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.CREATE_NEW_TASK] ({ commit }, { userId, description }) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.post(`http://localhost:8000/api/v1/tasks/${userId}`)
+        axios.post(`http://localhost:8000/api/v1/tasks/${userId}`, { description })
           .then(response => {
             commit(MutationTypes.SET_NEW_TASK, { userId, description })
             resolve(response.data)
@@ -147,9 +147,9 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.GET_USER] ({ commit }, id) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.delete(`http://localhost:4000/api/v1/users/${id}`)
+        axios.get(`http://localhost:4000/api/v1/users/${id}`)
           .then(response => {
-            commit(MutationTypes.SET_UPDATE_MESSAGE, response.data.data)
+            commit(MutationTypes.SET_USER, response.data.data.name)
             resolve(response.data)
           })
       }, 300)

@@ -25,6 +25,7 @@
                 <v-text-field
                   label="Description"
                   required
+                  v-model="description"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -42,7 +43,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="handleSubmit"
           >
             Save
           </v-btn>
@@ -54,12 +55,29 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { ActionTypes } from '../store/action-types'
 
 export default Vue.extend({
   name: 'TaskForm',
 
   data: () => ({
+    description: '',
     dialog: false
-  })
+  }),
+  methods: {
+    async handleSubmit () {
+      const userId = this.$route.params.id
+      const description = this.description
+      const payload = {
+        userId,
+        description
+      }
+      await this.$store.dispatch(ActionTypes.CREATE_NEW_TASK, payload)
+      this.dialog = false
+      this.description = ''
+      await this.$store.dispatch(ActionTypes.GET_TASKS, userId)
+    }
+  }
+
 })
 </script>

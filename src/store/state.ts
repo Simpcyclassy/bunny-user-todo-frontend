@@ -9,9 +9,9 @@ const users = [] as UserType
 export type TaskType = { id?: string; description: string; state?: TaskState; userId: string}[];
 const tasks = [] as TaskType
 
-export type UserPayload = { id?: string; name: any };
+export type UserPayload = { id?: string; name: string };
 
-export type TaskPayload = { id?: string; description: any; userId: string };
+export type TaskPayload = { id?: string; description: string; userId: string };
 
 export const state = {
   users,

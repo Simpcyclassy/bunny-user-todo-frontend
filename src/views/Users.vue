@@ -13,28 +13,30 @@
 
       <UserForm />
     </v-toolbar>
-    <v-list>
-      <v-list-item
-        v-for="user in getAllUsers"
-        :key="user.id"
-      >
-        <v-list-item-icon>
-          <EditUser :userId="user.id" />
+    <v-list shaped>
+      <v-list-item-group>
+        <v-list-item
+          v-for="user in getAllUsers"
+          :key="user.id"
+        >
+          <v-list-item-icon>
+            <EditUser :userId="user.id" />
+          </v-list-item-icon>
+          <v-list-item-content class="pl-12">
+            <router-link :to="`/todo/${user.id}`">
+              <v-list-item-title v-text="user.name"></v-list-item-title>
+            </router-link>
+          </v-list-item-content>
+          <v-list-item-icon>
+            <v-btn
+              icon
+              @click="handleDelete(user.id)"
+            >
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
         </v-list-item-icon>
-
-        <v-list-item-content>
-          <v-list-item-title v-text="user.name"></v-list-item-title>
-        </v-list-item-content>
-
-        <v-list-item-icon>
-          <v-btn
-            icon
-            @click="handleDelete(user.id)"
-          >
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
-        </v-list-item-icon>
-      </v-list-item>
+        </v-list-item>
+      </v-list-item-group>
     </v-list>
   </v-card>
 </template>
@@ -61,7 +63,7 @@ export default Vue.extend({
   },
 
   methods: {
-    async getUser () {
+    async getUsers () {
       await this.$store.dispatch(ActionTypes.GET_USERS)
     },
     async handleDelete (id: number) {
@@ -71,7 +73,7 @@ export default Vue.extend({
   },
 
   mounted () {
-    this.getUser()
+    this.getUsers()
   }
 
 })
