@@ -25,6 +25,7 @@
                 <v-text-field
                   label="Description"
                   required
+                  v-model="description"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -42,6 +43,7 @@
           <v-btn
             color="blue darken-1"
             text
+            @click="handleUpdate"
           >
             Save
           </v-btn>
@@ -53,14 +55,34 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { ActionTypes } from '../store/action-types'
 
 export default Vue.extend({
   name: 'EditTask',
 
+  props: {
+    taskId: String
+  },
+
   data: () => ({
-    name: '',
+    description: '',
     dialog: false
-  })
+  }),
+
+  methods: {
+    async handleUpdate () {
+      const description = this.description
+      const userId = this.$route.params.id
+      const payload = {
+        id: this.taskId,
+        description
+      }
+      await this.$store.dispatch(ActionTypes.EDIT_TASK, payload)
+      this.dialog = false
+      this.description = ''
+      await this.$store.dispatch(ActionTypes.GET_TASKS, userId)
+    }
+  }
 
 })
 </script>

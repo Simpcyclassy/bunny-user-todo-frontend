@@ -87,7 +87,7 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.EDIT_USER] ({ commit }, { id, name }) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.patch(`http://localhost:4000/api/v1/users/${id}`, name)
+        axios.patch(`http://localhost:4000/api/v1/users/${id}`, { name })
           .then(response => {
             commit(MutationTypes.SET_UPDATE_MESSAGE, `${name} updated successfully`)
             resolve(response.data)
@@ -108,11 +108,12 @@ export const actions: ActionTree<State, State> & Actions = {
     })
   },
 
-  [ActionTypes.EDIT_TASK] ({ commit }, { userId, description }) {
+  [ActionTypes.EDIT_TASK] ({ commit }, { id, description }) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.patch(`http://localhost:8000/api/v1/tasks/${userId}`)
+        axios.patch(`http://localhost:8000/api/v1/tasks/${id}`, { description })
           .then(response => {
+            console.log(response)
             commit(MutationTypes.SET_UPDATE_MESSAGE, `${description} updated successfully`)
             resolve(response.data)
           })
