@@ -29,11 +29,11 @@
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
                 <v-card-title v-text="item.description"></v-card-title>
-                <v-list-item-icon>
+                <v-list-item-icon v-if="item.state === 'todo'">
                   <EditTask :taskId="item.id"/>
                 </v-list-item-icon>
               </div>
-              <v-checkbox></v-checkbox>
+              <v-checkbox @click="handleDone(item.id)" v-if="item.state === 'todo'"></v-checkbox>
             </div>
           </v-card>
         </v-col>
@@ -56,6 +56,10 @@ export default Vue.extend({
     TaskForm,
     EditTask
   },
+
+  data: () => ({
+    disabled: false
+  }),
 
   computed: {
     ...mapGetters([
@@ -80,10 +84,17 @@ export default Vue.extend({
       const userId = this.$route.params.id
       await this.$store.dispatch(ActionTypes.GET_TASKS, userId)
     },
-    // input-value="true" disabled
+
     async getCurrentUser () {
       const userId = this.$route.params.id
       await this.$store.dispatch(ActionTypes.GET_USER, userId)
+    },
+
+    async handleDone (id: number) {
+      const userId = this.$route.params.id
+      await this.$store.dispatch(ActionTypes.MARK_DONE, id)
+      await this.$store.dispatch(ActionTypes.GET_TASKS, userId)
+      this.disabled = true
     }
 
   },
