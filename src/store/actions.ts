@@ -133,12 +133,13 @@ export const actions: ActionTree<State, State> & Actions = {
     })
   },
 
-  [ActionTypes.MARK_DONE] ({ commit }, userId) {
+  [ActionTypes.MARK_DONE] ({ commit }, id) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.delete(`http://localhost:8000/api/v1/tasks/${userId}`)
+        axios.patch(`http://localhost:8000/api/v1/tasks/${id}/done`)
           .then(response => {
-            commit(MutationTypes.SET_UPDATE_MESSAGE, `${response.data.data.description} is completed`)
+            console.log(response)
+            commit(MutationTypes.SET_UPDATE_MESSAGE, `${response.data} is completed`)
             resolve(response.data)
           })
       }, 300)
