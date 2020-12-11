@@ -74,7 +74,7 @@ export default Vue.extend({
       const name = this.name
       const payload = {
         id: this.userId,
-        name: { name }
+        name
       }
       await this.$store.dispatch(ActionTypes.EDIT_USER, payload)
       this.dialog = false

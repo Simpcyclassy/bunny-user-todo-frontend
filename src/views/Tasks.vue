@@ -30,7 +30,7 @@
               <div>
                 <v-card-title v-text="item.description"></v-card-title>
                 <v-list-item-icon>
-                  <EditTask />
+                  <EditTask :taskId="item.id"/>
                 </v-list-item-icon>
               </div>
               <v-checkbox></v-checkbox>
@@ -80,7 +80,7 @@ export default Vue.extend({
       const userId = this.$route.params.id
       await this.$store.dispatch(ActionTypes.GET_TASKS, userId)
     },
-
+    // input-value="true" disabled
     async getCurrentUser () {
       const userId = this.$route.params.id
       await this.$store.dispatch(ActionTypes.GET_USER, userId)
