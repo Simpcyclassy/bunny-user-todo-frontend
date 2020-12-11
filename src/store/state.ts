@@ -6,15 +6,18 @@ export enum TaskState {
 export type UserType = { id?: string; name: string}[];
 const users = [] as UserType
 
-export type TaskType = { id: string; description: string; state: TaskState; user; userId: string}[];
+export type TaskType = { id?: string; description: string; state?: TaskState; userId: string}[];
 const tasks = [] as TaskType
 
 export type UserPayload = { id?: string; name: any };
 
+export type TaskPayload = { id?: string; description: any; userId: string };
+
 export const state = {
   users,
   tasks,
-  message: ''
+  message: '',
+  currentUser: ''
 }
 
 export type State = typeof state

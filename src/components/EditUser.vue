@@ -72,12 +72,10 @@ export default Vue.extend({
   methods: {
     async handleUpdate () {
       const name = this.name
-      console.log(this.userId)
       const payload = {
         id: this.userId,
         name: { name }
       }
-      console.log(payload)
       await this.$store.dispatch(ActionTypes.EDIT_USER, payload)
       this.dialog = false
       this.name = ''

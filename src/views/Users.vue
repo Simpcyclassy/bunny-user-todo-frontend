@@ -65,7 +65,6 @@ export default Vue.extend({
       await this.$store.dispatch(ActionTypes.GET_USERS)
     },
     async handleDelete (id: number) {
-      console.log(this.userId)
       await this.$store.dispatch(ActionTypes.DELETE_USER, id)
       await this.$store.dispatch(ActionTypes.GET_USERS)
     }
