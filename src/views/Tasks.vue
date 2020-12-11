@@ -46,6 +46,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
+import { ActionTypes } from '../store/action-types'
 import TaskForm from '../components/TaskForm.vue'
 import EditTask from '../components/EditTask.vue'
 
@@ -73,6 +74,21 @@ export default Vue.extend({
       }
 
       return colorClass
+    },
+
+    async getTodos () {
+      const id = this.$route.params.id
+      await this.$store.dispatch(ActionTypes.GET_TASKS, id)
+    }
+
+  },
+
+  watch: {
+    '$route.params.id': {
+      immediate: true,
+      handler () {
+        this.getTodos()
+      }
     }
   }
 })
