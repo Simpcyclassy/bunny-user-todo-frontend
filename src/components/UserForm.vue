@@ -74,7 +74,7 @@ export default Vue.extend({
   methods: {
     async handleSubmit () {
       const name = this.name
-      await this.$store.dispatch(ActionTypes.GET_NEW_USER, { name })
+      await this.$store.dispatch(ActionTypes.CREATE_NEW_USER, { name })
       this.dialog = false
       this.name = ''
       await this.$store.dispatch(ActionTypes.GET_USERS)
