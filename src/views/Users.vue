@@ -28,12 +28,12 @@
             </router-link>
           </v-list-item-content>
           <v-list-item-icon>
-          <v-btn
-            icon
-            @click="handleDelete(user.id)"
-          >
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
+            <v-btn
+              icon
+              @click="handleDelete(user.id)"
+            >
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
         </v-list-item-icon>
         </v-list-item>
       </v-list-item-group>

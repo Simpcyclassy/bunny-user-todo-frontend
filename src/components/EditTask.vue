@@ -42,7 +42,6 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="handleSubmit"
           >
             Save
           </v-btn>

@@ -7,7 +7,7 @@
       dark
       color="pink"
     >
-      <v-toolbar-title>User X</v-toolbar-title>
+      <v-toolbar-title>{{ getUser }}'s todo</v-toolbar-title>
 
       <v-spacer></v-spacer>
       <v-btn icon>
@@ -23,16 +23,15 @@
           cols="12"
         >
           <v-card
-            :color="colorClass(i)"
+            :color="colorClass(item.state)"
             dark
           >
             <div class="d-flex flex-no-wrap justify-space-between">
               <div>
-                <v-card-subtitle v-text="item.description"></v-card-subtitle>
-
-                <v-card-actions>
+                <v-card-title v-text="item.description"></v-card-title>
+                <v-list-item-icon>
                   <EditTask />
-                </v-card-actions>
+                </v-list-item-icon>
               </div>
               <v-checkbox></v-checkbox>
             </div>
@@ -60,25 +59,31 @@ export default Vue.extend({
 
   computed: {
     ...mapGetters([
-      'getTodo'
+      'getTodo',
+      'getUser'
     ])
   },
   methods: {
-    colorClass (index: number) {
+    colorClass (index) {
       let colorClass = ''
 
-      if (this.getTodo[index].TaskState === 'todo') {
-        colorClass = 'todo'
+      if (index === 'todo') {
+        colorClass = '#e67d21'
       } else {
-        colorClass = 'done'
+        colorClass = 'grey'
       }
 
       return colorClass
     },
 
     async getTodos () {
-      const id = this.$route.params.id
-      await this.$store.dispatch(ActionTypes.GET_TASKS, id)
+      const userId = this.$route.params.id
+      await this.$store.dispatch(ActionTypes.GET_TASKS, userId)
+    },
+
+    async getCurrentUser () {
+      const userId = this.$route.params.id
+      await this.$store.dispatch(ActionTypes.GET_USER, userId)
     }
 
   },
@@ -88,19 +93,9 @@ export default Vue.extend({
       immediate: true,
       handler () {
         this.getTodos()
+        this.getCurrentUser()
       }
     }
   }
 })
 </script>
-
-<style scoped>
-
-.todo {
-  color: lightblue;
-}
-
-.done {
-  color: grey;
-}
-</style>
