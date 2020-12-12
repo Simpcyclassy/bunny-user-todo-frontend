@@ -1,6 +1,6 @@
 <template>
   <v-card
-    max-width="400"
+    max-width="600px"
     class="mx-auto"
   >
       <v-app-bar
@@ -71,10 +71,10 @@ export default Vue.extend({
     colorClass (index) {
       let colorClass = ''
 
-      if (index === 'todo') {
-        colorClass = '#e67d21'
-      } else {
+      if (index === 'done') {
         colorClass = 'grey'
+      } else {
+        colorClass = '#e67d21'
       }
 
       return colorClass
