@@ -59,11 +59,14 @@ export interface Actions {
   ): Promise<TaskPayload>;
 }
 
+const baseUsersUrl = 'https://bunny-user.herokuapp.com/'
+const baseTaskssUrl = 'https://bunnystudio-task.herokuapp.com/'
+
 export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.GET_USERS] ({ commit }) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.get('http://localhost:4000/api/v1/users')
+        axios.get(`${baseUsersUrl}api/v1/users/`)
           .then(response => {
             commit(MutationTypes.SET_USERS, response.data.data)
             resolve(response.data)
@@ -75,7 +78,7 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.CREATE_NEW_USER] ({ commit }, payload: UserPayload) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.post('http://localhost:4000/api/v1/users', payload)
+        axios.post(`${baseUsersUrl}api/v1/users/`, payload)
           .then(response => {
             commit(MutationTypes.SET_NEW_USER, payload)
             resolve(response.data)
@@ -87,7 +90,7 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.EDIT_USER] ({ commit }, { id, name }) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.patch(`http://localhost:4000/api/v1/users/${id}`, { name })
+        axios.patch(`${baseUsersUrl}api/v1/users/${id}`, { name })
           .then(response => {
             commit(MutationTypes.SET_UPDATE_MESSAGE, `${name} updated successfully`)
             resolve(response.data)
@@ -99,7 +102,7 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.CREATE_NEW_TASK] ({ commit }, { userId, description }) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.post(`http://localhost:8000/api/v1/tasks/${userId}`, { description })
+        axios.post(`${baseTaskssUrl}api/v1/tasks/${userId}`, { description })
           .then(response => {
             commit(MutationTypes.SET_NEW_TASK, { userId, description })
             resolve(response.data)
@@ -111,7 +114,7 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.EDIT_TASK] ({ commit }, { id, description }) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.patch(`http://localhost:8000/api/v1/tasks/${id}`, { description })
+        axios.patch(`${baseTaskssUrl}api/v1/tasks/${id}`, { description })
           .then(response => {
             console.log(response)
             commit(MutationTypes.SET_UPDATE_MESSAGE, `${description} updated successfully`)
@@ -124,7 +127,7 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.DELETE_USER] ({ commit }, id) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.delete(`http://localhost:4000/api/v1/users/${id}`)
+        axios.delete(`${baseUsersUrl}api/v1/users/${id}`)
           .then(response => {
             commit(MutationTypes.SET_UPDATE_MESSAGE, `${response.data.data.name} deleted successfully`)
             resolve(response.data)
@@ -136,7 +139,7 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.MARK_DONE] ({ commit }, id) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.patch(`http://localhost:8000/api/v1/tasks/${id}/done`)
+        axios.patch(`${baseTaskssUrl}api/v1/tasks/${id}/done`)
           .then(response => {
             console.log(response)
             commit(MutationTypes.SET_UPDATE_MESSAGE, `${response.data} is completed`)
@@ -149,7 +152,7 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.GET_USER] ({ commit }, id) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.get(`http://localhost:4000/api/v1/users/${id}`)
+        axios.get(`${baseUsersUrl}api/v1/users/${id}`)
           .then(response => {
             commit(MutationTypes.SET_USER, response.data.data.name)
             resolve(response.data)
@@ -161,7 +164,7 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.GET_TASKS] ({ commit }, userId) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        axios.get(`http://localhost:8000/api/v1/tasks/${userId}/all`)
+        axios.get(`${baseTaskssUrl}api/v1/tasks/${userId}/all`)
           .then(response => {
             commit(MutationTypes.SET_TASKS, response.data.data)
             resolve(response.data)

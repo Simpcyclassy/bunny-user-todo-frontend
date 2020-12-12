@@ -22,12 +22,12 @@ export const mutations: MutationTree<State> & Mutations = {
     state.message = payload
   },
   [MutationTypes.SET_NEW_USER] (state, payload: UserPayload) {
-    state.users.push(payload)
+    state.users.unshift(payload)
   },
   [MutationTypes.SET_TASKS] (state, payload: TaskType) {
     state.tasks = payload
   },
   [MutationTypes.SET_NEW_TASK] (state, payload: TaskPayload) {
-    state.tasks.push(payload)
+    state.tasks.unshift(payload)
   }
 }
